@@ -14,6 +14,11 @@ class UserOut(pydantic.BaseModel):
     is_me_follow: Optional[bool]
 
 
+class SearchOut(pydantic.BaseModel):
+    user: User
+    avatar_url: Optional[str]
+
+
 class FollowersOut(pydantic.BaseModel):
     user: User
     avatar_url: Optional[str]

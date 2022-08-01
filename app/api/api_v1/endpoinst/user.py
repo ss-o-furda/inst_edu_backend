@@ -6,7 +6,7 @@ import models
 import schemas
 from api import deps
 from api.api_v1.api_schemas import (FollowersOut, FollowsOut, UserOut,
-                                    UserPostsOut)
+                                    UserPostsOut, SearchOut)
 from core.settings import settings
 from data.post_statuses import Statuses
 from email_utils import send_new_account_email
@@ -115,3 +115,19 @@ async def get_user_follows(user_id: int, current_user: models.Users = Depends(de
         })
 
     return follows_response
+
+
+@router.get("/search/{query}", response_model=List[SearchOut])
+async def search_user(query: str, current_user: models.Users = Depends(deps.get_current_active_user)) -> Any:
+    search_response = []
+    users = await crud.user.search_by_username(query)
+    for user in users:
+        print(user.user_name)
+        user_data = await crud.user.get(id=user.id)
+        avatar = await crud.avatar.get_by_user_id(user_id=user.id)
+        search_response.append({
+            "user": user_data,
+            "avatar_url": avatar.url if avatar else None
+        })
+
+    return search_response

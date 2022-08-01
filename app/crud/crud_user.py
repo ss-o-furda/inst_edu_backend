@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from core.security import get_password_hash, verify_password
 from db.session import create_async_session
@@ -50,6 +50,14 @@ class CRUDUser(CRUDBase[Users, UserCreate, UserUpdate]):
             result = await session.execute(query)
 
             return result.scalar_one_or_none()
+
+    async def search_by_username(self, search_query: str) -> List[Users]:
+        async with create_async_session() as session:
+            query = select(Users).filter(
+                Users.user_name.contains(search_query))  # type: ignore
+            result = await session.execute(query)
+
+            return result.scalars().all()
 
     async def change_password(self, *, db_obj: Users, obj_in: UserChangePassword) -> Users:
         setattr(db_obj, "hashed_password", get_password_hash(obj_in.new_password))
