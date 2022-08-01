@@ -3,7 +3,8 @@ Description=gunicorn uvicorn service for InstEdu Service API
 After=syslog.target
 
 [Service]
-ExecStart=/bin/bash -c "/apps/inst_edu_backend/app/server/scripts/server_start.sh"
+EnvironmentFile=/apps/inst_edu_backend/.env
+ExecStart=/apps/venv/bin/gunicorn -b 127.0.0.1:8000 -w 4 -k uvicorn.workers.UvicornWorker main:api --name instedu_svc --chdir /apps/inst_edu_backend/app --access-logfile /apps/logs/instedu_api/access.log --error-logfile /apps/logs/instedu_api/errors.log --user apiuser
 
 # \/ \/ <- Added post recording for better restart perf.
 ExecReload=/bin/kill -s HUP $MAINPID
