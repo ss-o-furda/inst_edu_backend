@@ -1,0 +1,48 @@
+server {
+    listen 80;
+    server_name instedu-api.orikfw.com;
+    server_tokens off;
+    charset utf-8;
+
+    listen 443 ssl;
+
+    ssl_certificate /etc/letsencrypt/live/instedu-api.orikfw.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/instedu-api.orikfw.com/privkey.pem;
+
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    location /static {
+        gzip            on;
+        gzip_buffers    8 256k;
+
+        alias /apps/inst_edu_backend/static;
+        expires 365d;
+    }
+    location /user_avatars {
+        gzip            on;
+        gzip_buffers    8 256k;
+
+        alias /apps/inst_edu_backend/user_avatars;
+        expires 365d;
+    }
+    location /post_images {
+        gzip            on;
+        gzip_buffers    8 256k;
+
+        alias /apps/inst_edu_backend/post_images;
+        expires 365d;
+    }
+    location / {
+        try_files $uri @yourapplication;
+    }
+    location @yourapplication {
+        gzip            on;
+        gzip_buffers    8 256k;
+
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Protocol $scheme;
+    }
+}
