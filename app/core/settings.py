@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     # 60 minutes * 24 hours * 8 days = 8 days
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
     PROJECT_NAME: str
+    SERVER_HOST: Optional[str]
+
+    AVATARS_FOLDER = "user_avatars"
+    POST_IMAGES_FOLDER = "post_images"
 
     SMTP_TLS: bool = True
     SMTP_PORT: Optional[int] = None
@@ -25,7 +29,7 @@ class Settings(BaseSettings):
         return v
 
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
-    EMAIL_TEMPLATES_DIR: str = "/app/email-templates/build"
+    EMAIL_TEMPLATES_DIR: str = "static/email-templates/build"
     EMAILS_ENABLED: bool = False
 
     FIRST_SUPERUSER: EmailStr
