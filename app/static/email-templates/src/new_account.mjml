@@ -1,0 +1,31 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image width="100px" src="../img/instedu_logo.png"></mj-image>
+
+        <mj-divider border-color="black"></mj-divider>
+
+        <mj-text align="center" font-size="30px" color="black" font-family="Gill Sans">Welcome to InstEdu</mj-text>
+
+        <mj-spacer></mj-spacer>
+
+        <mj-text align="center" font-size="24px" color="black" font-family="Gill Sans">Glad to see you {{ full_name }}</mj-text>
+        <mj-text align="left" font-size="20px" color="black" font-family="Gill Sans">Your login: {{ user_name }}</mj-text>
+        <mj-text align="left" font-size="20px" color="black" font-family="Gill Sans">Your password: {{ password }}</mj-text>
+
+        <mj-spacer></mj-spacer>
+        <mj-spacer></mj-spacer>
+
+        <mj-button background-color="black" href="{{ link }}">Go to resource</mj-button>
+
+        <mj-spacer></mj-spacer>
+
+        <mj-divider border-color="black"></mj-divider>
+
+        <mj-text align="center" font-size="14px" color="black" font-family="Gill Sans">You are receiving this email because {{ email }} is a registered
+          InstEdu account.</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
