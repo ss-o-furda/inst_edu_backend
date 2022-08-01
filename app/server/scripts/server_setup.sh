@@ -50,8 +50,6 @@ pip install -r requirements.txt
 
 # Copy and enable the daemon
 cp /apps/inst_edu_backend/app/server/units/instedu.service /etc/systemd/system/
-chmod +x env.sh
-chmod +x /apps/inst_edu_backend/app/server/scripts/server_start.sh 
 
 systemctl start instedu
 systemctl status instedu
